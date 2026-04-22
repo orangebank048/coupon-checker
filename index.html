@@ -336,13 +336,13 @@ function buildResult(type, icon, label, qr, status, time, useAction, resetAction
 }
 
 async function doUse(qr, tab) {
-  const res = await callAPI({ action:'update', qr, do:'use' });
+  const res = await callAPI({ action:'update', qr, cmd:'use' });
   processCode(qr, tab);
 }
 
 async function doReset(qr, tab) {
   if (!confirm('ยืนยันยกเลิกการใช้งานคูปองนี้?')) return;
-  await callAPI({ action:'update', qr, do:'reset' });
+  await callAPI({ action:'update', qr, cmd:'reset' });
   processCode(qr, tab);
 }
 
