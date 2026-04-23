@@ -336,14 +336,20 @@ function buildResult(type, icon, label, qr, status, time, useAction, resetAction
 }
 
 async function doUse(qr, tab) {
+  const resultDiv = document.getElementById('result-'+tab);
+  resultDiv.innerHTML = '<div class="loading">กำลังบันทึก...</div>';
   const res = await callAPI({ action:'update', qr, cmd:'use' });
-  processCode(qr, tab);
+  console.log('doUse result:', JSON.stringify(res));
+  await processCode(qr, tab);
 }
 
 async function doReset(qr, tab) {
   if (!confirm('ยืนยันยกเลิกการใช้งานคูปองนี้?')) return;
-  await callAPI({ action:'update', qr, cmd:'reset' });
-  processCode(qr, tab);
+  const resultDiv = document.getElementById('result-'+tab);
+  resultDiv.innerHTML = '<div class="loading">กำลังยกเลิก...</div>';
+  const res = await callAPI({ action:'update', qr, cmd:'reset' });
+  console.log('doReset result:', JSON.stringify(res));
+  await processCode(qr, tab);
 }
 
 // ===== STATUS =====
